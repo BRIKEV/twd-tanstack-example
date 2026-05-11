@@ -5,12 +5,21 @@ import { tanstackRouter } from '@tanstack/router-plugin/vite'
 
 import viteReact from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import { twd } from 'twd-js/vite-plugin';
+import { twdRemote } from 'twd-relay/vite';
 
 const config = defineConfig({
   resolve: { tsconfigPaths: true },
   plugins: [
     devtools(),
     tailwindcss(),
+    twd({
+      testFilePattern: '/**/*.twd.test.{ts,tsx}',
+      open: true,
+      position: 'left',
+      search: true,
+    }),
+    twdRemote(),
     tanstackRouter({ target: 'react', autoCodeSplitting: true }),
     viteReact(),
   ],
