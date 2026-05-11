@@ -10,6 +10,14 @@ import { twdRemote } from 'twd-relay/vite';
 
 const config = defineConfig({
   resolve: { tsconfigPaths: true },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+      },
+    },
+  },
   plugins: [
     devtools(),
     tailwindcss(),
