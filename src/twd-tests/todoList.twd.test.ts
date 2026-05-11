@@ -1,10 +1,12 @@
 import { twd, expect, userEvent, screenDom } from "twd-js";
 import { describe, it, beforeEach } from "twd-js/runner";
+import { queryClient } from "#/query-client";
 import todoListMock from "./mocks/todoList.json";
 
 describe("Todo List Page", () => {
   beforeEach(() => {
     twd.clearRequestMockRules();
+    queryClient.clear();
   });
 
   it("should display the todo list", async () => {
@@ -17,22 +19,22 @@ describe("Todo List Page", () => {
     await twd.visit("/todos");
     await twd.waitForRequest("getTodoList");
     
-    const todo1Title = await screenDom.getByText("Learn TWD");
+    const todo1Title = await screenDom.findByText("Learn TWD");
     twd.should(todo1Title, "be.visible");
     
-    const todo2Title = await screenDom.getByText("Build Todo App");
+    const todo2Title = await screenDom.findByText("Build Todo App");
     twd.should(todo2Title, "be.visible");
     
-    const todo1Description = await screenDom.getByText("Understand how to use TWD for testing web applications");
+    const todo1Description = await screenDom.findByText("Understand how to use TWD for testing web applications");
     twd.should(todo1Description, "be.visible");
     
-    const todo2Description = await screenDom.getByText("Create a todo list application to demonstrate TWD features");
+    const todo2Description = await screenDom.findByText("Create a todo list application to demonstrate TWD features");
     twd.should(todo2Description, "be.visible");
     
-    const todo1Date = await screenDom.getByText("Date: 2024-12-20");
+    const todo1Date = await screenDom.findByText("Date: 2024-12-20");
     twd.should(todo1Date, "be.visible");
     
-    const todo2Date = await screenDom.getByText("Date: 2024-12-25");
+    const todo2Date = await screenDom.findByText("Date: 2024-12-25");
     twd.should(todo2Date, "be.visible");
   });
 
@@ -52,7 +54,7 @@ describe("Todo List Page", () => {
     await twd.visit("/todos");
     await twd.waitForRequest("getTodoList");
     
-    const noTodosMessage = await screenDom.getByText("No todos yet. Create one above!");
+    const noTodosMessage = await screenDom.findByText("No todos yet. Create one above!");
     twd.should(noTodosMessage, "be.visible");
     
     await twd.mockRequest("getTodoList", {
@@ -64,16 +66,16 @@ describe("Todo List Page", () => {
       status: 200,
     });
     
-    const titleInput = await screenDom.getByLabelText("Title");
+    const titleInput = await screenDom.findByLabelText("Title");
     await userEvent.type(titleInput, "Test Todo");
     
-    const descriptionInput = await screenDom.getByLabelText("Description");
+    const descriptionInput = await screenDom.findByLabelText("Description");
     await userEvent.type(descriptionInput, "Test Description");
     
-    const dateInput = await screenDom.getByLabelText("Date");
+    const dateInput = await screenDom.findByLabelText("Date");
     await userEvent.type(dateInput, "2024-12-20");
     
-    const submitButton = await screenDom.getByRole("button", { name: "Create Todo" });
+    const submitButton = await screenDom.findByRole("button", { name: "Create Todo" });
     await userEvent.click(submitButton);
     
     await twd.waitForRequest("getTodoList");
@@ -84,7 +86,7 @@ describe("Todo List Page", () => {
       date: "2024-12-20",
     });
 
-    const todoList = await screenDom.getAllByText(/Learn TWD|Build Todo App|Test Todo/);
+    const todoList = await screenDom.findAllByText(/Learn TWD|Build Todo App|Test Todo/);
     expect(todoList).to.have.length(1);
   });
 
