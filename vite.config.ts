@@ -7,6 +7,7 @@ import viteReact from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { twd } from 'twd-js/vite-plugin';
 import { twdRemote } from 'twd-relay/vite';
+import istanbul from 'vite-plugin-istanbul';
 
 const config = defineConfig({
   resolve: { tsconfigPaths: true },
@@ -30,6 +31,12 @@ const config = defineConfig({
     twdRemote(),
     tanstackRouter({ target: 'react', autoCodeSplitting: true }),
     viteReact(),
+    istanbul({
+      include: 'src/*',
+      exclude: ['node_modules', '**/*.twd.test.ts'],
+      requireEnv: !process.env.CI,
+      extension: ['.ts', '.tsx'],
+    }),
   ],
 })
 

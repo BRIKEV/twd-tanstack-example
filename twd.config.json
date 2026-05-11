@@ -1,0 +1,18 @@
+{
+  "url": "http://localhost:3000",
+  "timeout": 10000,
+  "coverage": true,
+  "coverageDir": "./coverage",
+  "nycOutputDir": "./.nyc_output",
+  "headless": true,
+  "puppeteerArgs": ["--no-sandbox", "--disable-setuid-sandbox"],
+  "contractReportPath": ".twd/contract-report.md",
+  "contracts": [
+    {
+      "source": "./contracts/todos-3.0.json",
+      "baseUrl": "/api",
+      "mode": "error",
+      "strict": true
+    }
+  ]
+}

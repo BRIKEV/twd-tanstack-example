@@ -7,11 +7,16 @@
   },
   "scripts": {
     "dev": "vite dev --port 3000",
+    "dev:ci": "CI=true vite dev --port 3000",
     "build": "vite build",
     "preview": "vite preview",
     "serve": "json-server --watch data/data.json --routes data/routes.json --port 3001",
     "serve:dev": "npm-run-all --parallel serve dev",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:ci": "npx twd-cli run",
+    "collect:coverage:text": "npx nyc report --reporter=text --temp-dir .nyc_output",
+    "collect:coverage:html": "npx nyc report --reporter=html --temp-dir .nyc_output",
+    "collect:coverage:lcov": "npx nyc report --reporter=lcov --temp-dir .nyc_output"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
@@ -40,10 +45,13 @@
     "jsdom": "^28.1.0",
     "json-server": "^0.17.4",
     "npm-run-all": "^4.1.5",
+    "nyc": "^18.0.0",
+    "twd-cli": "^1.1.12",
     "twd-js": "^1.8.0",
     "twd-relay": "^1.2.0",
     "typescript": "^6.0.2",
     "vite": "^8.0.0",
+    "vite-plugin-istanbul": "^8.0.0",
     "vitest": "^4.1.5"
   },
   "pnpm": {
