@@ -34,6 +34,13 @@ jobs:
         env:
           CI: true
 
+      # Pre-install the Chrome version twd-cli's puppeteer expects.
+      # The shared action installs Chrome via puppeteer@latest, which can
+      # drift from twd-cli's pinned puppeteer (e.g. puppeteer 25 installs
+      # Chrome 149 while twd-cli needs 148).
+      - name: Install Chrome for twd-cli
+        run: npx -y -p twd-cli -c 'puppeteer browsers install chrome'
+
       - name: Run TWD tests
         uses: BRIKEV/twd-cli/.github/actions/run@main
         with:
