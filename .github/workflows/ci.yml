@@ -27,6 +27,12 @@ jobs:
       - name: Install mock service worker
         run: npx twd-js init public --save
 
+      # json-server first: Vite proxies /api to it, so it must be up before the app.
+      - name: Start mock API
+        run: |
+          nohup npm run serve > json-server.log 2>&1 &
+          npx wait-on http://localhost:3001/todos
+
       - name: Start dev server
         run: |
           nohup npm run dev:ci > /dev/null 2>&1 &
@@ -34,10 +40,6 @@ jobs:
         env:
           CI: true
 
-      # Pre-install the Chrome version twd-cli's puppeteer expects.
-      # The shared action installs Chrome via puppeteer@latest, which can
-      # drift from twd-cli's pinned puppeteer (e.g. puppeteer 25 installs
-      # Chrome 149 while twd-cli needs 148).
       - name: Run TWD tests
         uses: BRIKEV/twd-cli/.github/actions/run@main
         with:
