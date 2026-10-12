@@ -16,7 +16,8 @@
     "test:ci": "npx twd-cli run",
     "collect:coverage:text": "npx nyc report --reporter=text --temp-dir .nyc_output",
     "collect:coverage:html": "npx nyc report --reporter=html --temp-dir .nyc_output",
-    "collect:coverage:lcov": "npx nyc report --reporter=lcov --temp-dir .nyc_output"
+    "collect:coverage:lcov": "npx nyc report --reporter=lcov --temp-dir .nyc_output",
+    "lint:twd": "twd-lint"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.0",
@@ -47,6 +48,7 @@
     "nyc": "^18.0.0",
     "twd-cli": "1.10.0",
     "twd-js": "^1.10.1",
+    "twd-lint": "^1.0.0",
     "twd-relay": "^1.4.0",
     "typescript": "^6.0.3",
     "vite": "^8.0.12",
