@@ -65,6 +65,9 @@
     "@tanstack/router-devtools-core": "1.167.3",
     "@tanstack/router-generator": "1.166.42",
     "@tanstack/router-utils": "1.161.8",
-    "@tanstack/virtual-file-routes": "1.161.7"
+    "@tanstack/virtual-file-routes": "1.161.7",
+    "twd-relay": {
+      "twd-js": "$twd-js"
+    }
   }
 }
