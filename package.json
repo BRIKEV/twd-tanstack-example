@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "vite dev --port 3000",
-    "dev:ci": "CI=true vite dev --port 3000",
+    "dev:ci": "CI=true NODE_ENV=production vite dev --port 3000",
     "build": "vite build",
     "preview": "vite preview",
     "serve": "json-server --watch data/data.json --routes data/routes.json --port 3001",

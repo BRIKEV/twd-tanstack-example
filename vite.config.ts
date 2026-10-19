@@ -36,6 +36,7 @@ const config = defineConfig({
       exclude: ['node_modules', '**/*.twd.test.ts'],
       requireEnv: !process.env.CI,
       extension: ['.ts', '.tsx'],
+      checkProd: false,
     }),
   ],
 })
